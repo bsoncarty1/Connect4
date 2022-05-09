@@ -27,7 +27,7 @@ public class DrawGrid {
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(frame.getSize());
-        MultiDraw multiDraw = new MultiDraw(frame.getSize(), players);
+        MultiDraw multiDraw = new MultiDraw(frame.getSize(), players); //edit when code is made
         frame.setLocationRelativeTo(null);
         frame.add(multiDraw);
         frame.pack();

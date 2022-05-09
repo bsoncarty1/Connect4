@@ -28,12 +28,18 @@ public class PlayerVComputer extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == playButton){
-                    Computer player = new Computer(playerName.getName());
+                    Computer player = new Computer(getPlayerName());
                     new DrawGrid(player);
                     frame.dispose();
                 }
             }
         });
     }
+
+
+    public String getPlayerName(){
+        return this.playerName.getText();
+    }
+    public String getComputerName() { return "Computer";}
 
 }

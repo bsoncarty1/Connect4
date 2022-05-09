@@ -30,6 +30,10 @@ public class GameType {
                     new PlayerVPlayer();
                     frame.dispose();
                 }
+                if(e.getSource() == compButton){
+                    new PlayerVComputer();
+                    frame.dispose();
+                }
             }
         });
     }
