@@ -2,6 +2,8 @@ package Connect4;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PlayerVComputer extends JFrame{
     private JPanel pvcPanel;
@@ -20,6 +22,18 @@ public class PlayerVComputer extends JFrame{
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+
+        playButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource() == playButton){
+                    Computer player = new Computer(playerName.getName());
+                    new DrawGrid(player);
+                    frame.dispose();
+                }
+            }
+        });
     }
 
 }
