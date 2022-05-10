@@ -344,7 +344,7 @@ import java.awt.event.MouseListener;
             int score = 0;
             int countPiece = 0;
             int countOpposite = 0;
-            int countEmpty = 0;
+            int  countEmpty = 0;
 
             for(int i = 0; i < window.length ; i++){
                 if(piece.equals(window[i])) countPiece++;
