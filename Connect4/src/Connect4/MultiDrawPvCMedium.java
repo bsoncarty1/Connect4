@@ -325,7 +325,7 @@ import java.awt.event.MouseListener;
                 }
             }
 
-            //Vertical check
+            //Vertical  check
             for(column = 0; column < 7; column++){
                 columnColors = new Color[6];
                 for (int i = 0; i < columnColors.length; i++)
