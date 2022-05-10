@@ -341,7 +341,7 @@ import java.awt.event.MouseListener;
         }
 
         public int evaluate_Window(Color[] window, Color piece){
-            int score = 0;
+            int score =  0;
             int countPiece = 0;
             int countOpposite = 0;
             int  countEmpty = 0;
