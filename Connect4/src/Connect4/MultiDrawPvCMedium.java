@@ -329,7 +329,7 @@ import java.awt.event.MouseListener;
             for(column = 0; column < 7; column++){
                 columnColors = new Color[6];
                 for (int i = 0; i < columnColors.length; i++)
-                    columnColors[i]  = this.grid[i][column];
+                    columnColors[i] = this.grid[i][column];
 
                 for(row = 0; row < 2; row++ ){
                     window = new Color[]{columnColors[row],columnColors[row+1],columnColors[row+2],columnColors[row+3]};
