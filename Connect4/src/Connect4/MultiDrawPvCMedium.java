@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
     public class MultiDrawPvCMedium extends JPanel implements MouseListener {
-        int startX = 10;
+        int startX =  10;
         int startY = 10;
         int cellSize = 60;
         int turn = 2;

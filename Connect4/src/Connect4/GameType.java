@@ -34,10 +34,7 @@ public class GameType {
                     new PlayerVComputer();
                     frame.dispose();
                 }
-                /*else{
-                    new PlayerVProgram();
-                    frame.dispose();
-                }*/
+
             }
         });
     }
