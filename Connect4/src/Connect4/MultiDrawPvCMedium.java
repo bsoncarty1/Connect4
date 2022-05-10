@@ -333,7 +333,7 @@ import java.awt.event.MouseListener;
 
                 for(row = 0; row < 2; row++ ){
                     window = new Color[]{columnColors[row],columnColors[row+1],columnColors[row+2],columnColors[row+3]};
-                    score += evaluate_Window(window,color);
+                    score  += evaluate_Window(window,color);
                 }
             }
 
