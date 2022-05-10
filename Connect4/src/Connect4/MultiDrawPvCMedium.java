@@ -314,6 +314,7 @@ import java.awt.event.MouseListener;
             int row, column;
             Color[] rowColors, columnColors;
             Color[] window;
+
             //Horizontal Check
             for (row = 0; row < 6; row ++){
                 rowColors = this.grid[row];
