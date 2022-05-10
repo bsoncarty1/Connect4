@@ -332,8 +332,28 @@ import java.awt.event.MouseListener;
                     columnColors[i]  = this.grid[i][column];
 
                 for(row = 0; row < 2; row++ ){
-                    window = new Color[]{columnColors[row],columnColors[row+1],columnColors[row+2],columnColors[row+3]};
+                    window = new Color[]{columnColors[row],columnColors[row+1],
+                            columnColors[row+2],columnColors[row+3]};
                     score += evaluate_Window(window,color);
+                }
+            }
+
+            //positive sloped diagonal check
+            for(row = 0; row < 3; row++){
+                for(column = 0; column < 4; column++){
+                        window = new Color[]{this.grid[row][column],this.grid[row+1][column+1],
+                                this.grid[row+2][column+2],this.grid[row+3][column+3]};
+
+                        score += evaluate_Window(window, color);
+                }
+            }
+            //negative slope diagonal check
+            for(row = 6; row > 3; row--){
+                for(column = 0; column < 4; column++){
+                    window = new Color[]{this.grid[row][column],this.grid[row-1][column+1],
+                            this.grid[row-2][column+2],this.grid[row-3][column+3]};
+
+                    score += evaluate_Window(window, color);
                 }
             }
 
