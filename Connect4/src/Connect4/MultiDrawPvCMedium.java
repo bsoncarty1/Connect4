@@ -147,6 +147,7 @@ import java.awt.event.MouseListener;
 
         //Marvel
 
+
         public boolean checkForWinner(int cc,int cr, Color c){
             //search west and east
             int xStart = cc;
