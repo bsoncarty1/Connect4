@@ -15,7 +15,7 @@ public class MultiDraw extends JPanel implements MouseListener {
     boolean winner=false;
     Players players;
     String color = "";
-    Color[][] grid = new Color[rows][cols];
+    Color[][] grid = new Color[rows][cols];//6 rows, 7 columns of colors
 
 
     public MultiDraw(Dimension dimension, Players players) {
