@@ -18,7 +18,7 @@ import java.awt.event.MouseListener;
         Players players;
         String color = "";
         Color[][] grid = new Color[rows][cols];//6 rows, 7 columns of colors
-        int[] yValues = {0,0,0,0,0,0,0};
+        int[] yValues = {5,5,5,5,5,5,5};
 
 
         public MultiDrawPvCMedium(Dimension dimension, Players players) {
@@ -94,19 +94,32 @@ import java.awt.event.MouseListener;
 
                     if(clickedRow!=-1){
 
-                        if(turn%2==0){
+
                             grid[clickedRow][clickedCol]= Color.red;
                             color =  "RED";
-                            this.yValues[clickedCol] += 1;
-                        } else{
+                            this.yValues[clickedCol] -= 1;
+
+                        /*else{
                             grid[clickedRow][clickedCol]= Color.yellow;
                             color =  "Yellow";
                             this.yValues[clickedCol] += 1;
-                        }
-                        turn++;
+                        }*/
+                        //turn++;
                         if(checkForWinner(clickedCol,clickedRow, grid[clickedRow][clickedCol])){
                             winner=true;
 
+                        }
+                        else{
+                            int ret = AI_move(Color.yellow);
+                            grid[this.yValues[ret]][ret] = Color.yellow;
+                            color = "Yellow";
+
+
+                            if(checkForWinner(this.yValues[ret],ret, grid[this.yValues[ret]][ret])){
+                                winner=true;
+
+                            }
+                            this.yValues[ret] -= 1;
                         }
                     }
                 }
@@ -147,9 +160,15 @@ import java.awt.event.MouseListener;
 
         //Marvel
 
-
         public boolean checkForWinner(int cc,int cr, Color c){
+            return checkOccurence(cr,cc,c,4) > 0;
+        }
+
+
+        public int checkOccurence(int cr,int cc, Color c, int target_count){
             //search west and east
+
+            int count_of_occurences = 0;
             int xStart = cc;
             int count = 1;
             //check west
@@ -160,8 +179,8 @@ import java.awt.event.MouseListener;
                 }else{
                     break;
                 }
-                if(count==4)
-                    return true;
+                if(count==target_count)
+                    count_of_occurences++;
 
                 xStart--;
             }
@@ -177,8 +196,8 @@ import java.awt.event.MouseListener;
                 }else{
                     break;
                 }
-                if(count==4)
-                    return true;
+                if(count==target_count)
+                    count_of_occurences++;
 
                 xStart++;
             }
@@ -193,8 +212,8 @@ import java.awt.event.MouseListener;
                 }else{
                     break;
                 }
-                if(count==4)
-                    return true;
+                if(count==target_count)
+                    count_of_occurences++;
 
                 yStart--;
             }
@@ -210,8 +229,8 @@ import java.awt.event.MouseListener;
                 }else{
                     break;
                 }
-                if(count==4)
-                    return true;
+                if(count==target_count)
+                    count_of_occurences++;
 
                 yStart++;
             }
@@ -228,8 +247,8 @@ import java.awt.event.MouseListener;
                 }else{
                     break;
                 }
-                if(count==4)
-                    return true;
+                if(count==target_count)
+                    count_of_occurences++;
 
                 yStart--;
                 xStart--;
@@ -248,8 +267,8 @@ import java.awt.event.MouseListener;
                 }else{
                     break;
                 }
-                if(count==4)
-                    return true;
+                if(count==target_count)
+                    count_of_occurences++;
 
                 yStart++;
                 xStart++;
@@ -268,8 +287,8 @@ import java.awt.event.MouseListener;
                 }else{
                     break;
                 }
-                if(count==4)
-                    return true;
+                if(count==target_count)
+                    count_of_occurences++;
 
                 yStart++;
                 xStart--;
@@ -288,14 +307,14 @@ import java.awt.event.MouseListener;
                 }else{
                     break;
                 }
-                if(count==4)
-                    return true;
+                if(count==target_count)
+                    count_of_occurences++;
 
                 yStart--;
                 xStart++;
             }
 
-            return false;
+            return count_of_occurences;
         }
 
         public void reset(){
@@ -309,9 +328,127 @@ import java.awt.event.MouseListener;
             }
         }
 
+        public int AI_move(Color color){
+            Color opposite = null;
+                if(color.equals(Color.red))
+                    opposite = Color.yellow;
 
-        public int scorePosition(int x, int y, Color color){
+                else opposite = Color.red;
+
+
+            int count = 0;
+            int test = 0;
+            int[] scored_moves = {0,1,2,3,2,1,0};
+            //For each turn, there can only be 7 possible moves, 1 for each coordinate
+            //The index of scored_moves represents the x-coordinate for the board.
+            //The reason each index is not set to zero is because we want the AI to prioritize the center
+            //columns, so if there are 2 turns that have the same strategic value, the AI will chose the
+            // The most central of the 2 turns.
+
+
+            for(int i = 0; i< this.yValues.length;i++){
+                //I added a global array yValues to keep track of which y coordinates are open to use
+                //To get a valid coordinate, pick the x value, then the y value is yValue[x] and thats where the
+                //piece would go on the board.
+
+                count = 0;
+                test = checkOccurence(this.yValues[i],i,color,3);
+                //test represents how many "3 in a row" segments are connected to this specific coordinate
+                // I modified the check for winner method to have a 4th parameter and that's the "# in a row" you
+                //want that method to find.
+
+
+
+                //The Logic for this goes as follows:
+                    //Check if theres an offensive winning move
+                    //If not, check if theres a deffensive move to save the game
+                    //If not, check if theres an offensive move to set up 3 in a row
+                    //If not, check if theres a defensive move to prevent a 3 in a row
+                    //If not, check for offensive 2 in a row
+                    //If not, check for preventing a 2 in a row
+
+
+
+                //*******************************************************************************
+                //Here starts the trial an error of a successful algorithm
+                // Here I have a winning move valued at 10,000 times the amount of 3 in a rows the move
+                // Is connected to, so for example, a move that simultaniously connects 2 "3 in a row"s
+                //Is worth twice as valuable as a move that just connects 1 "3 in a row"
+                 if(test > 0)
+                     //if there is
+                     count += test*10000;
+
+
+                 //If theres no winning move, check if theres a winning move can be blocked
+                 else {
+                     test = checkOccurence(this.yValues[i], i, opposite, 3);
+                     //Now we check the same peice but it's value for the opponent, call to the same
+                     //Method but with the opposite color
+
+                     if(test > 0)
+                         count += test*9000;
+                        //Right now I have a defensive move worth 10% less than its offensive counterpart
+                        //This would prevent the problem skipping over a winning move to play defense
+
+                     else{
+                         //If theres no "3 in a row" to block, check for an offensive "2 in a row" (2iar)
+                         // No offensive 2iar, check for defensive 2iar
+                         test = checkOccurence(this.yValues[i],i,color,2);
+                         if(test > 0)
+                             count += test*100;
+
+                         else{
+                             test = checkOccurence(this.yValues[i], i, opposite, 2);
+
+                             if(test > 0)
+                                 count += test*90;
+
+                             else{
+                                 test = checkOccurence(this.yValues[i],i,color,1);
+                                 if(test > 0)
+                                     count += test*10;
+                                 else{
+                                     test = checkOccurence(this.yValues[i], i, opposite, 1);
+
+                                     if(test > 0)
+                                         count += test*9;
+                                 }
+                             }
+                         }
+                     }
+                 }
+
+                scored_moves[i] += count;
+            }
+
+            //By here, scored_moves[] is filled with the strategic value for each of the 7 possible moves
+            //Find the index of the max of scored_moves and then we have the x coordinate of the best move.
+            //It is crucial that the values of scored_moves[]s do not get rearranged as the index decides what
+            //move the computer makes.
+
+
+            int max = 0;
+            int index = 0;
+            for(int i = 0; i < scored_moves.length;i++){
+                if(max < scored_moves[i]) {
+                    max = scored_moves[i];
+                    index = i;
+                }
+            }
+
+
+            return index;
+        }
+
+
+
+        //Everything past this point is the python code I tried to convert to java but it didn't work
+        public int scorePosition(int y, int x, Color color){
             int score = 0;
+            int countPiece = 0;
+            int countOpposite = 0;
+            int  countEmpty = 0;
+
             int row, column;
             Color[] rowColors, columnColors;
             Color[] window;
@@ -322,20 +459,76 @@ import java.awt.event.MouseListener;
                 for(column = 0; column < 3; column++){
                     window = new Color[]{rowColors[column], rowColors[column + 1], rowColors[column + 2], rowColors[column + 3]};
                     score += evaluate_Window(window,color);
+
+
+
+                    countPiece = 0;
+                    countOpposite = 0;
+                    countEmpty = 0;
+
+
+                    for(int i = 0; i < window.length ; i++){
+                        Color test = window[i];
+                        if(test.equals(color)) countPiece++;
+
+                        else if(test.equals(Color.white)) countEmpty++;
+
+                        else countOpposite++;
+                    }
+
+                    if(countPiece == 4) score = 1000;
+
+                    else if(countPiece == 3 && countEmpty == 1) score = 100;
+
+                    else if(countPiece == 2 && countEmpty == 2) score = 10;
+
+                    else if(countOpposite > countPiece) score = 1000;
+
+                    if(countOpposite == 3 && countEmpty == 1) score = 1000000;
+
                 }
             }
 
             //Vertical  check
             for(column = 0; column < 7; column++){
                 columnColors = new Color[6];
-                for (int i = 0; i < columnColors.length; i++)
-                    columnColors[i]  = this.grid[i][column];
+                for (int i = 0; i < columnColors.length-4; i++) {
+                    columnColors[i] = this.grid[i][column];
+                    window = new Color[]{this.grid[i][column], this.grid[i+1][column],
+                            this.grid[i+2][column], this.grid[i+3][column]};
 
-                for(row = 0; row < 2; row++ ){
+
+                    countPiece = 0;
+                    countOpposite = 0;
+                    countEmpty = 0;
+
+
+                    for(i = 0; i < window.length ; i++){
+                        Color test = window[i];
+                        if(test.equals(color)) countPiece++;
+
+                        else if(test.equals(Color.white)) countEmpty++;
+
+                        else countOpposite++;
+                    }
+
+                    if(countPiece == 4) score+= 1000;
+
+                    else if(countPiece == 3 && countEmpty == 1) score = 100;
+
+                    else if(countPiece == 2 && countEmpty == 2) score = 10;
+
+                    else if(countOpposite > countPiece) score = 1000;
+
+                    if(countOpposite == 3 && countEmpty == 1) score = 1000000;
+
+                }
+
+                /*for(row = 0; row <= 2; row++ ){
                     window = new Color[]{columnColors[row],columnColors[row+1],
                             columnColors[row+2],columnColors[row+3]};
                     score += evaluate_Window(window,color);
-                }
+                }*/
             }
 
             //positive sloped diagonal check
@@ -344,16 +537,62 @@ import java.awt.event.MouseListener;
                         window = new Color[]{this.grid[row][column],this.grid[row+1][column+1],
                                 this.grid[row+2][column+2],this.grid[row+3][column+3]};
 
-                        score += evaluate_Window(window, color);
+                    countPiece = 0;
+                    countOpposite = 0;
+                    countEmpty = 0;
+
+
+                    for(int i = 0; i < window.length ; i++){
+                        Color test = window[i];
+                        if(test.equals(color)) countPiece++;
+
+                        else if(test.equals(Color.white)) countEmpty++;
+
+                        else countOpposite++;
+                    }
+
+                    if(countPiece == 4) score+= 1000;
+
+                    else if(countPiece == 3 && countEmpty == 1) score = 100;
+
+                    else if(countPiece == 2 && countEmpty == 2) score = 10;
+
+                    else if(countOpposite > countPiece) score = 1000;
+
+                    if(countOpposite == 3 && countEmpty == 1) score = 1000000;
+
                 }
             }
             //negative slope diagonal check
-            for(row = 6; row > 3; row--){
-                for(column = 0; column < 4; column++){
+            for(row = 0; row > 2; row--){
+                for(column = 0; column < 3; column++){
                     window = new Color[]{this.grid[row][column],this.grid[row-1][column+1],
                             this.grid[row-2][column+2],this.grid[row-3][column+3]};
 
-                    score += evaluate_Window(window, color);
+                    countPiece = 0;
+                    countOpposite = 0;
+                    countEmpty = 0;
+
+
+                    for(int i = 0; i < window.length ; i++){
+                        Color test = window[i];
+                        if(test.equals(color)) countPiece++;
+
+                        else if(test.equals(Color.white)) countEmpty++;
+
+                        else countOpposite++;
+                    }
+
+                    if(countPiece == 4) score+= 1000;
+
+                    else if(countPiece == 3 && countEmpty == 1) score = 100;
+
+                    else if(countPiece == 2 && countEmpty == 2) score = 10;
+
+                    else if(countOpposite > countPiece) score = 1000;
+
+                    if(countOpposite == 3 && countEmpty == 1) score = 1000000;
+
                 }
             }
 
@@ -366,21 +605,25 @@ import java.awt.event.MouseListener;
             int countOpposite = 0;
             int  countEmpty = 0;
 
-            for(int i = 0; i < window.length ; i++){
-                if(piece.equals(window[i])) countPiece++;
 
-                else if(window[i].equals(Color.white)) countEmpty++;
+            for(int i = 0; i < window.length ; i++){
+                Color test = window[i];
+                if(test.equals(piece)) countPiece++;
+
+                else if(test.equals(Color.white)) countEmpty++;
 
                 else countOpposite++;
             }
 
-            if(countPiece == 4) score += 1000;
+            if(countPiece == 4) score+= 1000;
 
             else if(countPiece == 3 && countEmpty == 1) score += 100;
 
             else if(countPiece == 2 && countEmpty == 2) score += 10;
 
-            if(countOpposite == 3 && countEmpty == 1) score -= 100;
+            else if(countOpposite > countPiece) score += 1000;
+
+            if(countOpposite == 3 && countEmpty == 1) score += 1000000;
 
             return score;
 
