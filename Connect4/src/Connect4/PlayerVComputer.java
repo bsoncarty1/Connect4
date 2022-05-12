@@ -7,8 +7,9 @@ import java.awt.event.ActionListener;
 
 public class PlayerVComputer extends JFrame{
     private JPanel pvcPanel;
-    private JLabel playerNameLabel;
+    private JLabel title;
     private JTextField playerName;
+    private JLabel playerNameLabel;
     private JButton playButton;
 
 
@@ -28,8 +29,8 @@ public class PlayerVComputer extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource() == playButton){
-                    Computer player = new Computer(getPlayerName());
-                    new DrawGrid(player);
+                    Players player = new Players(getPlayerName());
+                    new DrawGridPVC(player);
                     frame.dispose();
                 }
             }
