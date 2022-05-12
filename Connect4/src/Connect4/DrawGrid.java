@@ -14,7 +14,7 @@ public class DrawGrid {
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(frame.getSize());
-        MultiDraw multiDraw = new MultiDraw(frame.getSize(), players);
+        MultiDrawPvCMedium multiDraw = new MultiDrawPvCMedium(frame.getSize(), players);
         frame.setLocationRelativeTo(null);
         frame.add(multiDraw);
         frame.pack();
