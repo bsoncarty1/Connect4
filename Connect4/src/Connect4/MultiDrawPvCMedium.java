@@ -374,6 +374,9 @@ import java.awt.event.MouseListener;
                 // Here I have a winning move valued at 10,000 times the amount of 3 in a rows the move
                 // Is connected to, so for example, a move that simultaniously connects 2 "3 in a row"s
                 //Is worth twice as valuable as a move that just connects 1 "3 in a row"
+                // What needs to be refined is the "count += test*..." lines, I dont know what values
+                //Would make the algo decide the best move everytime.
+
                  if(test > 0)
                      //if there is
                      count += test*10000;
