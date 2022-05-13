@@ -151,7 +151,7 @@ import java.awt.event.MouseListener;
         }
 
         public void mouseExited(MouseEvent e) {
-            reset();
+
         }
 
         public void mouseClicked(MouseEvent e) {

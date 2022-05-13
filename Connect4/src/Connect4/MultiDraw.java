@@ -133,7 +133,7 @@ public class MultiDraw extends JPanel implements MouseListener {
     }
 
     public void mouseExited(MouseEvent e) {
-        reset();
+
     }
 
     public void mouseClicked(MouseEvent e) {
