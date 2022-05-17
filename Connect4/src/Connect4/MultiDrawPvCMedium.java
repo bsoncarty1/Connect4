@@ -76,7 +76,7 @@ import java.awt.event.MouseListener;
                 if(color.equals("RED")) {
                     g2.drawString("WINNER - " + players.getPlayer1Name(), 475, 20);
                 }else{
-                    g2.drawString("WINNER - " + players.getPlayer2Name(), 475, 20);
+                    g2.drawString("WINNER - Computer", 475, 20);
                 }
             }
 
@@ -85,7 +85,7 @@ import java.awt.event.MouseListener;
         public void mousePressed(MouseEvent e) {
             int x = e.getX();
             int y = e.getY();
-            if(winner==false){
+            if(!winner){
                 if(x<(cellSize*grid[0].length) && y<(cellSize*grid.length)){
                     int clickedRow = y/cellSize;
                     int clickedCol = x/cellSize;
@@ -157,8 +157,6 @@ import java.awt.event.MouseListener;
         public void mouseClicked(MouseEvent e) {
 
         }
-
-        //Marvel
 
         public boolean checkForWinner(int cc,int cr, Color c){
             return checkOccurence(cr,cc,c,4) > 0;

@@ -10,7 +10,7 @@ public class DrawGridPVC {
 
     public DrawGridPVC(Players players){
         this.players = players;
-        frame = new JFrame("DrawGrid");
+        frame = new JFrame("Player vs. Computer");
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(frame.getSize());
