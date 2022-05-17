@@ -115,7 +115,7 @@ import java.awt.event.MouseListener;
                             color = "Yellow";
 
 
-                            if(checkForWinner(this.yValues[ret],ret, grid[this.yValues[ret]][ret])){
+                            if(checkForWinner(ret, this.yValues[ret], grid[this.yValues[ret]][ret])){
                                 winner=true;
 
                             }
