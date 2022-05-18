@@ -28,7 +28,7 @@ public class PlayerVPlayer extends JFrame {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == playButton){
+                if (e.getSource() == playButton) {
                     Players players = new Players(getPlayer1Name(),getPlayer2Name());
                     new DrawGridPVP(players);
                     frame.dispose();

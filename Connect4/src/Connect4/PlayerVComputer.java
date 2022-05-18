@@ -28,7 +28,7 @@ public class PlayerVComputer extends JFrame{
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == playButton){
+                if (e.getSource() == playButton) {
                     Players player = new Players(getPlayerName());
                     new DrawGridPVC(player);
                     frame.dispose();

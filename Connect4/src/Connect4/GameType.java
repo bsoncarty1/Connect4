@@ -26,7 +26,7 @@ public class GameType {
         pvpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == pvpButton) {
+                if (e.getSource() == pvpButton) {
                     new PlayerVPlayer();
                     frame.dispose();
                 }
@@ -36,7 +36,7 @@ public class GameType {
         compButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == compButton){
+                if (e.getSource() == compButton) {
                     new PlayerVComputer();
                     frame.dispose();
                 }

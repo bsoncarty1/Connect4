@@ -29,7 +29,7 @@ public class MainPage {
         mainButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getSource() == mainButton){
+                if (e.getSource() == mainButton) {
                     new GameType();
                     frame.dispose();
                 }

@@ -28,9 +28,10 @@ public class MultiDraw extends JPanel implements MouseListener {
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[0].length; col++) {
                 Color c;
-                if(x%2==0){
+                if (x%2 == 0) {
                     grid[row][col] = Color.white;
-                }else{
+                }
+                else {
                     grid[row][col] = Color.white;
                 }
                 x++;
@@ -38,7 +39,7 @@ public class MultiDraw extends JPanel implements MouseListener {
             }
 
         }
-    }
+    } //end MultiDraw
 
     @Override
     public void paintComponent(Graphics g) {
@@ -64,57 +65,59 @@ public class MultiDraw extends JPanel implements MouseListener {
         }
 
         g2.setColor(new Color(255, 255, 255));
-        if(!winner){
-            if(turn%2==0)
+        if (!winner) {
+            if (turn%2 == 0)
                 g2.drawString(players.getPlayer1Name() +"'s Turn",475,20);
             else
                 g2.drawString( players.getPlayer2Name() +"'s Turn",475,20);
-        }else{
-            if(color.equals("RED")) {
+        }
+        else {
+            if (color.equals("RED")) {
                 g2.drawString("WINNER - " + players.getPlayer1Name(), 475, 20);
-            }else{
+            }
+            else {
                 g2.drawString("WINNER - " + players.getPlayer2Name(), 475, 20);
             }
         }
-
-    }
+    } //end paintComponent
 
     public void mousePressed(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        if(winner==false){
-            if(x<(cellSize*grid[0].length) && y<(cellSize*grid.length)){
+        if (winner == false) {
+            if (x < (cellSize * grid[0].length) && y < (cellSize * grid.length)) {
                 int clickedRow = y/cellSize;
                 int clickedCol = x/cellSize;
 
                 clickedRow = dropP(clickedCol);
 
-                if(clickedRow!=-1){
+                if (clickedRow != -1) {
 
-                    if(turn%2==0){
+                    if (turn %2 == 0) {
                         grid[clickedRow][clickedCol]= Color.red;
                         color =  "RED";
-                    } else{
+                    }
+                    else {
                         grid[clickedRow][clickedCol]= Color.yellow;
-                        color =  "Yellow";
+                        color = "Yellow";
                     }
                     turn++;
-                    if(checkForWinner(clickedCol,clickedRow, grid[clickedRow][clickedCol])){
-                        winner=true;
+                    if (checkForWinner(clickedCol,clickedRow, grid[clickedRow][clickedCol])) {
+                        winner = true;
 
                     }
                 }
             }
             repaint();
         }
-    }
+    } //end mousePressed
 
     public int dropP(int cc){
-        int cr = grid.length-1;
+        int cr = grid.length - 1;
 
-        while(cr>=0){
+        while (cr>=0) {
 
-            if(grid[cr][cc].equals(Color.white)){
+            if (grid[cr][cc].equals(Color.white)) {
                 return cr;
             }
             cr--;
@@ -122,7 +125,7 @@ public class MultiDraw extends JPanel implements MouseListener {
 
         return -1;
 
-    }
+    } //end dropP
 
     public void mouseReleased(MouseEvent e) {
 
@@ -148,13 +151,14 @@ public class MultiDraw extends JPanel implements MouseListener {
         int count = 1;
         //check west
         xStart--;
-        while(xStart>=0){
-            if(grid[cr][xStart].equals(c)){
+        while (xStart >= 0) {
+            if (grid[cr][xStart].equals(c)) {
                 count++;
-            }else{
+            }
+            else {
                 break;
             }
-            if(count==4)
+            if (count==4)
                 return true;
 
             xStart--;
@@ -163,15 +167,16 @@ public class MultiDraw extends JPanel implements MouseListener {
         //check east
         xStart = cc;
         xStart++;
-        while(xStart<grid[0].length){
+        while (xStart < grid[0].length) {
 
-            if(grid[cr][xStart].equals(c)){
+            if(grid[cr][xStart].equals(c)) {
 
                 count++;
-            }else{
+            }
+            else {
                 break;
             }
-            if(count==4)
+            if(count == 4)
                 return true;
 
             xStart++;
@@ -181,13 +186,14 @@ public class MultiDraw extends JPanel implements MouseListener {
         count = 1;
         int yStart = cr;
         yStart--;
-        while(yStart>0){
-            if(grid[yStart][cc].equals(c)){
+        while (yStart>0) {
+            if (grid[yStart][cc].equals(c)) {
                 count++;
-            }else{
+            }
+            else {
                 break;
             }
-            if(count==4)
+            if (count == 4)
                 return true;
 
             yStart--;
@@ -196,15 +202,16 @@ public class MultiDraw extends JPanel implements MouseListener {
         //check east
         yStart = cr;
         yStart++;
-        while(yStart<grid.length){
+        while (yStart<grid.length) {
 
-            if(grid[yStart][cc].equals(c)){
+            if (grid[yStart][cc].equals(c)) {
 
                 count++;
-            }else{
+            }
+            else {
                 break;
             }
-            if(count==4)
+            if (count == 4)
                 return true;
 
             yStart++;
@@ -216,13 +223,14 @@ public class MultiDraw extends JPanel implements MouseListener {
         xStart = cc;
         xStart--;
         yStart--;
-        while(yStart>0 && xStart>0){
-            if(grid[yStart][xStart].equals(c)){
+        while (yStart>0 && xStart>0) {
+            if (grid[yStart][xStart].equals(c)) {
                 count++;
-            }else{
+            }
+            else {
                 break;
             }
-            if(count==4)
+            if (count == 4)
                 return true;
 
             yStart--;
@@ -234,15 +242,16 @@ public class MultiDraw extends JPanel implements MouseListener {
         yStart++;
         xStart = cc;
         xStart++;
-        while(yStart<grid.length && xStart<grid.length){
+        while(yStart < grid.length && xStart < grid.length) {
 
-            if(grid[yStart][xStart].equals(c)){
+            if (grid[yStart][xStart].equals(c)) {
 
                 count++;
-            }else{
+            }
+            else {
                 break;
             }
-            if(count==4)
+            if (count == 4)
                 return true;
 
             yStart++;
@@ -256,13 +265,14 @@ public class MultiDraw extends JPanel implements MouseListener {
         xStart = cc;
         xStart--;
         yStart++;
-        while(yStart<grid.length && xStart>0){
-            if(grid[yStart][xStart].equals(c)){
+        while (yStart < grid.length && xStart > 0) {
+            if (grid[yStart][xStart].equals(c)) {
                 count++;
-            }else{
+            }
+            else {
                 break;
             }
-            if(count==4)
+            if (count == 4)
                 return true;
 
             yStart++;
@@ -274,15 +284,16 @@ public class MultiDraw extends JPanel implements MouseListener {
         yStart--;
         xStart = cc;
         xStart++;
-        while(yStart>0 && xStart<grid.length){
+        while (yStart > 0 && xStart < grid.length) {
 
-            if(grid[yStart][xStart].equals(c)){
+            if (grid[yStart][xStart].equals(c)) {
 
                 count++;
-            }else{
+            }
+            else {
                 break;
             }
-            if(count==4)
+            if (count == 4)
                 return true;
 
             yStart--;
@@ -290,19 +301,17 @@ public class MultiDraw extends JPanel implements MouseListener {
         }
 
         return false;
-    }
+    } //end checkForWinner
 
     public void reset(){
-        winner=false;
-        turn=2;
+        winner = false;
+        turn = 2;
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[0].length; col++) {
                 grid[row][col] = Color.white;
 
             }
         }
-    }
-
-
+    } //end reset
 }//end of class
 
