@@ -71,7 +71,7 @@ import java.awt.event.MouseListener;
                 if(turn%2==0)
                     g2.drawString(players.getPlayer1Name() +"'s Turn",475,20);
                 else
-                    g2.drawString( players.getPlayer2Name() +"'s Turn",475,20);
+                    g2.drawString("Computer's Turn",475,20);
             }else{
                 if(color.equals("RED")) {
                     g2.drawString("WINNER - " + players.getPlayer1Name(), 475, 20);
