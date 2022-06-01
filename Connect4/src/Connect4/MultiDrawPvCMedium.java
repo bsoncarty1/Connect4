@@ -1,6 +1,5 @@
 
-
-    package Connect4;
+package Connect4;
 
 import javax.swing.*;
 import java.awt.*;
@@ -99,12 +98,6 @@ import java.awt.event.MouseListener;
                             color =  "RED";
                             this.yValues[clickedCol] -= 1;
 
-                        /*else{
-                            grid[clickedRow][clickedCol]= Color.yellow;
-                            color =  "Yellow";
-                            this.yValues[clickedCol] += 1;
-                        }*/
-                        //turn++;
                         if(checkForWinner(clickedCol,clickedRow, grid[clickedRow][clickedCol])){
                             winner=true;
 
@@ -164,12 +157,12 @@ import java.awt.event.MouseListener;
 
 
         public int checkOccurence(int cr,int cc, Color c, int target_count){
-            //search west and east
+            //search left, right, up, down, and diagonally
 
             int count_of_occurences = 0;
             int xStart = cc;
             int count = 1;
-            //check west
+            //check left
             xStart--;
             while(xStart>=0){
                 if(grid[cr][xStart].equals(c)){
@@ -183,7 +176,7 @@ import java.awt.event.MouseListener;
                 xStart--;
             }
 
-            //check east
+            //check right
             xStart = cc;
             xStart++;
             while(xStart<grid[0].length){
@@ -200,7 +193,7 @@ import java.awt.event.MouseListener;
                 xStart++;
             }
 
-            //check North
+            //check up
             count = 1;
             int yStart = cr;
             yStart--;
@@ -233,7 +226,7 @@ import java.awt.event.MouseListener;
                 yStart++;
             }
 
-            //check NorthWest
+            //check diagonally up right
             count = 1;
             yStart = cr;
             xStart = cc;
@@ -252,7 +245,7 @@ import java.awt.event.MouseListener;
                 xStart--;
             }
 
-            //check Southeast
+            //check diagonally down right
             yStart = cr;
             yStart++;
             xStart = cc;
@@ -273,7 +266,7 @@ import java.awt.event.MouseListener;
             }
 
 
-            //check southWest
+            //check diagonally down left
             count = 1;
             yStart = cr;
             xStart = cc;
@@ -292,7 +285,7 @@ import java.awt.event.MouseListener;
                 xStart--;
             }
 
-            //check Northeast
+            //check diagonally up left
             yStart = cr;
             yStart--;
             xStart = cc;
@@ -315,16 +308,16 @@ import java.awt.event.MouseListener;
             return count_of_occurences;
         }
 
-        public void reset(){
-            winner=false;
-            turn=2;
-            for (int row = 0; row < grid.length; row++) {
-                for (int col = 0; col < grid[0].length; col++) {
-                    grid[row][col] = Color.white;
-
-                }
-            }
-        }
+//        public void reset(){
+//            winner=false;
+//            turn=2;
+//            for (int row = 0; row < grid.length; row++) {
+//                for (int col = 0; col < grid[0].length; col++) {
+//                    grid[row][col] = Color.white;
+//
+//                }
+//            }
+//        }
 
         public int AI_move(Color color){
             Color opposite = null;
@@ -337,17 +330,11 @@ import java.awt.event.MouseListener;
             int count = 0;
             int test = 0;
             int[] scored_moves = {0,1,2,3,2,1,0};
-            //For each turn, there can only be 7 possible moves, 1 for each coordinate
-            //The index of scored_moves represents the x-coordinate for the board.
-            //The reason each index is not set to zero is because we want the AI to prioritize the center
-            //columns, so if there are 2 turns that have the same strategic value, the AI will chose the
-            // The most central of the 2 turns.
+
 
 
             for(int i = 0; i< this.yValues.length;i++){
-                //I added a global array yValues to keep track of which y coordinates are open to use
-                //To get a valid coordinate, pick the x value, then the y value is yValue[x] and thats where the
-                //piece would go on the board.
+
 
                 count = 0;
                 test = checkOccurence(this.yValues[i],i,color,3);
