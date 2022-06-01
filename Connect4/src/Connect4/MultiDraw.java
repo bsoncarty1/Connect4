@@ -146,10 +146,10 @@ public class MultiDraw extends JPanel implements MouseListener {
     //Marvel
 
     public boolean checkForWinner(int cc,int cr, Color c){
-        //search west and east
+        //search left and right
         int xStart = cc;
         int count = 1;
-        //check west
+        //check left
         xStart--;
         while (xStart >= 0) {
             if (grid[cr][xStart].equals(c)) {
@@ -164,7 +164,7 @@ public class MultiDraw extends JPanel implements MouseListener {
             xStart--;
         }
 
-        //check east
+        //check right
         xStart = cc;
         xStart++;
         while (xStart < grid[0].length) {
@@ -182,7 +182,7 @@ public class MultiDraw extends JPanel implements MouseListener {
             xStart++;
         }
 
-        //check North
+        //check up
         count = 1;
         int yStart = cr;
         yStart--;
@@ -199,7 +199,7 @@ public class MultiDraw extends JPanel implements MouseListener {
             yStart--;
         }
 
-        //check east
+        //check right
         yStart = cr;
         yStart++;
         while (yStart<grid.length) {
@@ -217,7 +217,7 @@ public class MultiDraw extends JPanel implements MouseListener {
             yStart++;
         }
 
-        //check NorthWest
+        //check up and right diagonally
         count = 1;
         yStart = cr;
         xStart = cc;
@@ -237,7 +237,7 @@ public class MultiDraw extends JPanel implements MouseListener {
             xStart--;
         }
 
-        //check Southeast
+        //check down and right diagonally
         yStart = cr;
         yStart++;
         xStart = cc;
@@ -259,7 +259,7 @@ public class MultiDraw extends JPanel implements MouseListener {
         }
 
 
-        //check southWest
+        //check down and left diagonally
         count = 1;
         yStart = cr;
         xStart = cc;
@@ -279,7 +279,7 @@ public class MultiDraw extends JPanel implements MouseListener {
             xStart--;
         }
 
-        //check Northeast
+        //check up and left diagonally
         yStart = cr;
         yStart--;
         xStart = cc;
@@ -303,15 +303,15 @@ public class MultiDraw extends JPanel implements MouseListener {
         return false;
     } //end checkForWinner
 
-    public void reset(){
-        winner = false;
-        turn = 2;
-        for (int row = 0; row < grid.length; row++) {
-            for (int col = 0; col < grid[0].length; col++) {
-                grid[row][col] = Color.white;
-
-            }
-        }
-    } //end reset
+//    public void reset(){
+//        winner = false;
+//        turn = 2;
+//        for (int row = 0; row < grid.length; row++) {
+//            for (int col = 0; col < grid[0].length; col++) {
+//                grid[row][col] = Color.white;
+//
+//            }
+//        }
+//    } //end reset
 }//end of class
 
