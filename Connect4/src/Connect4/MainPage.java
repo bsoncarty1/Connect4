@@ -13,7 +13,7 @@ public class MainPage {
 
     public MainPage() {
 
-        JFrame frame = new JFrame("Main Paige");
+        JFrame frame = new JFrame("Main Page");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(600,400));
 
