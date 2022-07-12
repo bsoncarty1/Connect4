@@ -2,7 +2,6 @@ This project was created by Brandon Soncarty, Cason Nichols, John Taylor, and Ha
 
 The purpose of this project was to make something that we could present to our Java Object Oriented Programming class.
 My group decided to build a Connect 4 game. None of us had any prior experience building a game or using Swing, but we
-were able to complete it and get a 100% overall. This project was a great learning experience for me. I found out what it is like to work in a group, how to split up tasks, and how to present code that I created to a classroom full of people.
-I also gained a some experience using Swing, and though I only know the very basics, I enjoyed learning about it and the different ways it can be utilized.
+were able to complete it and get a 100% overall. This project was a great learning experience for me. I found out what it is like to work in a group, how to split up tasks, and how to present code that I created to a classroom full of people. I also gained a some experience using Swing, and though I only know the very basics, I enjoyed learning about it and the different ways it can be utilized.
 
 The path to the executable .jar is: Connect4/out/artifacts/Connect4_jar/Connect4.jar
